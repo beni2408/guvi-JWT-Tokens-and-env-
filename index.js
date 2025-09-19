@@ -1,11 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
-
 dotenv.config();
-console.log(process.env);
-const PORT = process.env.PORT;
+
+import errorHandler from "./src/middlewares/errorhandler.js";
+import connectDB from "./src/config/db.js";
 
 const app = express();
+console.log(process.env.PORT);
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.status(200).send("Application is working well");
+});
+
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
+  connectDB();
 });
