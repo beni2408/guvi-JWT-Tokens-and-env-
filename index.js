@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import authRouter from "./src/routes/authRoutes.js";
 
 import errorHandler from "./src/middlewares/errorhandler.js";
 import connectDB from "./src/config/db.js";
@@ -14,6 +15,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).send("Application is working well");
 });
+
+app.use("/api/auth", authRouter);
 
 app.use(errorHandler);
 app.listen(PORT, () => {
